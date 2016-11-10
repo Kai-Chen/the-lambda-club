@@ -1,4 +1,4 @@
-def line(ch, width):
+def line(ch, width=1):
     return [ch * width]
 
 def block(ch, width, height = None):
@@ -45,6 +45,23 @@ def heighten(elem, new_height):
         bottom = block(' ', w, diff - height(top))
         return above(above(top, elem), bottom)
 
+def spiral(num_edges, direction=0):
+    corner = line('+')
+    if num_edges == 1:
+        return corner
+    space = line(' ')
+    sp = spiral(num_edges - 1, (direction + 3) % 4)
+    vertical = block('|', 1, height(sp))
+    horizontal = line('-', width(sp))
+    if direction == 0:
+        return above(beside(corner, horizontal), beside(sp, space))
+    elif direction == 1:
+        return beside(above(sp, space), above(corner, vertical))
+    elif direction == 2:
+        return above(beside(space, sp), beside(horizontal, corner))
+    else:
+        return beside(above(vertical, corner), above(space, sp))
+
 if __name__ == '__main__':
     lines = [['*' * (2 * i - 1)] for i in range(1, 5)]
     t = lines[0]
@@ -53,3 +70,4 @@ if __name__ == '__main__':
 
     draw(t)
     draw(above(t, block('-', 4)))
+    draw(spiral(20))
