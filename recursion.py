@@ -7,3 +7,9 @@ def gcd(a, b):
         return a
     return gcd(remainder, a)
 
+import math
+def newton_sqrt(x):
+    def next_guess(y): return (y + (x/y)) / 2
+    def approx(y):
+        return y if math.isclose(x, y*y) else approx(next_guess(y))
+    return approx(1)
