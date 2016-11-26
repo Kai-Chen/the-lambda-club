@@ -1,11 +1,11 @@
 def gcd(a, b):
+    """Return the Greatest Common Divisor of two numbers.
+
+    Implements the Euclidean algorithm.
+    """
     if a > b:
         return gcd(b, a)
-
-    remainder = b % a
-    if remainder == 0:
-        return a
-    return gcd(remainder, a)
+    return b if a == 0 else gcd(b % a, a)
 
 import math
 def newton_sqrt(x):
